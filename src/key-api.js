@@ -1,20 +1,35 @@
-// import axios from 'axios';
-// const API_KEY = ''
+import axios from 'axios';
 
 const BASE_URL = 'https://pixabay.com/api/';
-API_KEY = '39676340-6e766954fc3fa698c8d5ed3b9';
+// const API_KEY = '39676340-6e766954fc3fa698c8d5ed3b9';
 
+axios.defaults.baseURL = `${BASE_URL}`;
 
-function fetchServer() {
-    return fetch(`${BASE_URL}?key=${API_KEY}`).then(response => {
-        if (!response.ok) {
-            throw new Error(response.statusText)
+// перехоплювач
+
+axios.interceptors.response.use(
+    response => {
+      return response;
+    },
+    error => {
+      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      return Promise.reject(error);
+    },
+  );
+
+  async function fetchPhoto() {
+    const responce = await axios.get(options);
+    const options = {
+        params: {
+            key: '39676340-6e766954fc3fa698c8d5ed3b9',
+            q: `${searchQuery}`,
+            image_type: 'photo',
+            orientation: 'horizontal',
+            safesearch: true,
         }
-        return response.json()
-    })
-};
-
-fetchServer().then(response => {
-    console.log(response);
-  })
+    }
+    return responce.data;
+  }
+  
+  export { fetchPhoto };
   

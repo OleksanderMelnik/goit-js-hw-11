@@ -1,23 +1,13 @@
-// import { fetchBreeds } from "./key-api";
+import Notiflix from 'notiflix';
+import { fetchPhoto } from './key-api';
 
+const searchForm = document.getElementById('search-form');
+const containerGallery = document.querySelector('.gallery');
+const searchQuery = 40;
 
+searchForm.addEventListener('submit', onSearchForm);
 
-// fetchBreeds().then(data => {
-//     loader.classList.add('loader-text')
-//     data.map(e => {
-//         breedArr.push({
-//             text: e.name, 
-//             value: e.id});
-//     });  
-    
-//     new SlimSelect({
-//         select: '.breed-select',
-//         data: breedArr
-//     });
-    
-//     })
-
-
-
-
+function onSearchForm(e) {
+    e.preventDefault();
+}
 
