@@ -27,6 +27,7 @@ export default class NewsApiService {
   try {  
     const response = await axios(options);
     const data = response.data;
+    this.incrementPage();
     return data;
   } catch (error) {
     console.error(error);
@@ -35,11 +36,11 @@ export default class NewsApiService {
 
 }
   incrementPage() {
-      this.page += 1;
+      this.page += 0.5;
     }
 
   currentPage() {
-    this.page;
+    this.page = 1;
   }
 
   get query() {
@@ -51,8 +52,6 @@ export default class NewsApiService {
   }
 }
 
-
-  
 
 
   
