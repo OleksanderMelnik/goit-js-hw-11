@@ -4,11 +4,17 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './key-api'
 
 let perPage = 0;
-const newsApiService = new NewsApiService();
+const lightbox = new SimpleLightbox('.gallery a', {
+  caption: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
+const newsApiService = new NewsApiService();
 const searchForm = document.getElementById('search-form');
 const containerGallery = document.querySelector('.gallery');
 const loadMore = document.querySelector('.load-more');
+
 
 searchForm.addEventListener('submit', onSearchForm);
 loadMore.addEventListener('click', onLoadMore)
@@ -27,7 +33,7 @@ function onSearchForm(e) {
       );
       return;
     }
-    
+
   perPage = 0;  
   fetchPhoto();
 
@@ -52,8 +58,6 @@ async function fetchPhoto() {
           )};          
       
           renderMarkingToGallery(hits);
-      
-      lightBoxImag();
 
 loadMore.classList.remove('is-hidden');
       
@@ -92,13 +96,8 @@ function renderMarkingToGallery(images) {
 
 }
 
-function lightBoxImag() {
-    lightbox = new SimpleLightbox('.gallery a', {
-    caption: true,
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-}
+
+    
 
 
 
