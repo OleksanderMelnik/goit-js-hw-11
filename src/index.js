@@ -10,6 +10,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
+
 const newsApiService = new NewsApiService();
 const searchForm = document.getElementById('search-form');
 const containerGallery = document.querySelector('.gallery');
@@ -59,10 +60,18 @@ async function fetchPhoto() {
       
           renderMarkingToGallery(hits);
 
-loadMore.classList.remove('is-hidden');
+  const { height: cardHeight } = document
+  .querySelector(".gallery")
+  .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: "smooth",
+  });
+  
       
 perPage += hits.length;
-      console.log(perPage);
+  
   if (perPage < totalHits) {
     Notiflix.Notify.success(`Hooray! We found ${totalHits - perPage} images.`);
   }    
@@ -99,8 +108,11 @@ function renderMarkingToGallery(images) {
     lightbox.refresh();
 }
 
-
-    
+window.onscroll = function() {
+  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+    loadMore.classList.remove('is-hidden');
+  }
+};
 
 
 
