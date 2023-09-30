@@ -78,9 +78,11 @@ perPage += hits.length;
    
 function renderMarkingToGallery(images) { 
     const markup = images.map(image => { const {id, largeImageURL, webformatURL, tags, likes, views, comments, downloads } = image;
-      return `<a class="" href="${largeImageURL}">
+      return `
       <div class="photo-card" id="${id}">
-      <img class="" src="${webformatURL}" alt="${tags}" loading="lazy" />
+      <a class="gallery__link" href="${largeImageURL}">
+      <img class="gallery__image" src="${webformatURL}" alt="${tags}" loading="lazy" />
+      </a>   
         <div class="info">
         <p class="info-item"><b>Likes</b>${likes}</p>
         <p class="info-item"><b>Views</b>${views}</p>
@@ -88,7 +90,7 @@ function renderMarkingToGallery(images) {
         <p class="info-item"><b>Downloads</b>${downloads}</p>
       </div>
       </div>
-      </a>     
+       
       `;
     })
     .join('');  
