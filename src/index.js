@@ -3,7 +3,7 @@ import SimpleLightbox from "simplelightbox";
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './key-api'
 
-let perPage = 0;
+let currentPerPage = 0;
 let newTotalHits = 0;
 const lightbox = new SimpleLightbox('.gallery a', {
   caption: true,
