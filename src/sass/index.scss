@@ -1,5 +1,6 @@
 @import './common';
 @import './example';
+
 body {
     margin: 0;
     padding: 20px;
@@ -180,6 +181,10 @@ body {
     flex-direction: column;
     text-align: center;
   }
+
+  .is-hidden {
+    display: none;
+  }
   
   .load-more {
     width: 160px;
@@ -206,3 +211,4 @@ body {
       display: none;
     }
   }
+

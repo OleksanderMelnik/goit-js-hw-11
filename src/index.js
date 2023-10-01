@@ -4,6 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import NewsApiService from './key-api'
 
 let perPage = 0;
+let newTotalHits = 0;
 const lightbox = new SimpleLightbox('.gallery a', {
   caption: true,
   captionsData: 'alt',
@@ -35,7 +36,7 @@ function onSearchForm(e) {
       return;
     }
 
-  perPage = 0;  
+  currentPerPage = 0;  
   fetchPhoto();
 
 }
@@ -68,22 +69,31 @@ async function fetchPhoto() {
     top: cardHeight * 2,
     behavior: "smooth",
   });
-  
-      
-perPage += hits.length;
-  
-  if (perPage < totalHits) {
-    Notiflix.Notify.success(`Hooray! We found ${totalHits - perPage} images.`);
-  }    
-  
-  if (perPage >= totalHits) {
-    Notiflix.Notify.failure(
-      'We are sorry, but you have reached the end of search results.');
-      loadMore.classList.add('is-hidden');
+
+  newTotalHits = totalHits - currentPerPage;
+
+  if (hits.length < newTotalHits) {
+     
+    Notiflix.Notify.success(`Hooray! We found ${totalHits - currentPerPage} images.`);
+    currentPerPage += hits.length;   
+    window.onscroll = function() {
+      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+        loadMore.classList.remove('is-hidden');
+      }
+    }; 
+  }   
+  if (hits.length >= newTotalHits ) {
+    loadMore.classList.add('is-hidden');
+    window.onscroll = function() {
+      if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+        loadMore.classList.add('is-hidden');
+      }          
   }
+  Notiflix.Notify.success(`Hooray! We found ${totalHits - currentPerPage} images.`);
+  Notiflix.Notify.info(
+    'We are sorry, but you have reached the end of search results.');
     }
     
-
    
 function renderMarkingToGallery(images) { 
     const markup = images.map(image => { const {id, largeImageURL, webformatURL, tags, likes, views, comments, downloads } = image;
@@ -108,11 +118,8 @@ function renderMarkingToGallery(images) {
     lightbox.refresh();
 }
 
-window.onscroll = function() {
-  if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-    loadMore.classList.remove('is-hidden');
-  }
-};
+
+
 
 
 
