@@ -82,6 +82,7 @@ async function fetchPhoto() {
       }
     }; 
   }   
+
   if (hits.length >= newTotalHits ) {
     loadMore.classList.add('is-hidden');
     window.onscroll = function() {
@@ -93,6 +94,7 @@ async function fetchPhoto() {
   Notiflix.Notify.info(
     'We are sorry, but you have reached the end of search results.');
     }
+  }
     
    
 function renderMarkingToGallery(images) { 
